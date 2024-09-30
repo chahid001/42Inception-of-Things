@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-two-deploy
+
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: app-2
+  template: # Pod
+    metadata:
+      labels:
+        app: app-2
+    spec:
+      containers:
+        - name: app-two-nginx
+          image: nginx:latest
+          command: ["/bin/sh", "-c"]
+          args: 
+          - |
+             sed -i 's/sendfile\s\+on;/sendfile off;/' /etc/nginx/nginx.conf &&
+             nginx -g 'daemon off;'
+          ports:
+            - containerPort: 80
+          volumeMounts:
+            - mountPath: /usr/share/nginx/html
+              name: app-two-volume
+      volumes:
+        - name: app-two-volume
+          hostPath:
+            path: /schahid/App-2
+            type: Directory

@@ -1,0 +1,32 @@
+---
+- name: Check if Kubectl is installed
+  command: kubectl version --client
+  register: kubectl_version
+  ignore_errors: true
+  changed_when: false
+
+- name: Get the latest stable version of Kubectl
+  shell: curl -L -s https://dl.k8s.io/release/stable.txt
+  register: kubectl_v
+  when: kubectl_version.rc != 0
+
+- name: Download Kubectl
+  get_url:
+    url: "https://dl.k8s.io/release/{{ kubectl_v.stdout }}/bin/linux/amd64/kubectl"
+    dest: /usr/local/bin
+    mode: '0755'
+  when: kubectl_version.rc != 0
+
+- name: Download the kubectl checksum
+  shell: curl -LO "https://dl.k8s.io/release/{{ kubectl_v.stdout }}/bin/linux/amd64/kubectl.sha256"
+  args:
+    chdir: /usr/local/bin
+  when: kubectl_version.rc != 0
+
+- name: Validate kubectl binary with checksum
+  shell: echo "$(cat kubectl.sha256)  kubectl" | sha256sum --check
+  args:
+    chdir: /usr/local/bin
+  ignore_errors: false
+  when: kubectl_version.rc != 0
+

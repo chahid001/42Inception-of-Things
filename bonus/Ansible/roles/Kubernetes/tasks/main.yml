@@ -1,0 +1,6 @@
+---
+- name: Install K3D
+  import_tasks: install-K3D.yml
+
+- name: Install Kubectl
+  import_tasks: install-kubectl.yml

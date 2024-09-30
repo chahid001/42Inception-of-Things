@@ -1,0 +1,54 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gitlab-runner-deployment
+
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gitlab-runner
+  template:
+    metadata:
+      name: gitlab-runner-pod
+      labels:
+        app: gitlab-runner
+    spec:
+      containers:
+        - name: gitlab-runner
+          image: gitlab/gitlab-runner:latest
+          command:
+            - /bin/bash
+            - "-ce"
+            - |
+              gitlab-runner register --non-interactive \
+              --url https://gitlab.com/ \
+              --registration-token "GR1348941pEGgQibMc9aWgLVmGVVE" \
+              --executor docker \
+              --tag-list "docker_runner" \
+              --docker-image debian:latest \
+              && gitlab-runner run
+          volumeMounts:
+            - name: runner-config
+              mountPath: /etc/gitlab-runner
+            - name: docker-socket
+              mountPath: /var/run/docker.sock
+          env:
+            - name: RUNNER_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  key: runner-token
+                  name: runner-secret
+            - name: TAG_NAME
+              valueFrom:
+                secretKeyRef:
+                  key: tag-name
+                  name: runner-secret
+      volumes:
+        - name: runner-config
+          hostPath:
+            path: /etc/gitlab-runner
+            type: Directory
+        - name: docker-socket
+          hostPath:
+            path: /var/run/docker.sock

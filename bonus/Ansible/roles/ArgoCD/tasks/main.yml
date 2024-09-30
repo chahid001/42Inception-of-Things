@@ -1,0 +1,6 @@
+---
+- name: Deploy ArgoCD
+  import_tasks: deploy-argocd.yml
+
+- name: Get ArgoCD password
+  import_tasks: get-password.yml

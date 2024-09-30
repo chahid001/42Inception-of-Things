@@ -1,0 +1,9 @@
+---
+- hosts: all
+  user: InceptionProMax
+  become: true
+  roles:
+    - Docker
+    - Kubernetes
+    - ArgoCD
+    - Deploy

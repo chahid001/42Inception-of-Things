@@ -1,0 +1,15 @@
+---
+- name: Copy .env to remote server
+  copy: 
+    src: ./../env/.env
+    dest: /home/InceptionProMax/.env
+    mode: 0755
+    owner: InceptionProMax
+    group: InceptionProMax
+
+- name: export env variables
+  shell: |
+    set -o allexport
+    source /home/InceptionProMax/.env
+    set +o allexport
+

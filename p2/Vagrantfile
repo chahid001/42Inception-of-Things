@@ -1,0 +1,25 @@
+Vagrant.configure("2") do |config|
+
+  config.vm.define("schahidS") do |server|
+
+    server.vm.box = "bento/ubuntu-24.04"
+    server.vm.hostname = "schahidS"
+    server.vm.network "private_network", ip: "192.168.56.110"
+
+    server.vm.provider("virtualbox") do |vb|
+
+      vb.name = "Server"
+      vb.cpus = 1
+      vb.memory = "1024"
+
+    end
+
+    server.vm.synced_folder "config", "/schahid"
+
+    # server.vm.provision "shell" do |sh|
+    #   sh.path = "scripts/"
+    # end
+
+  end
+
+end

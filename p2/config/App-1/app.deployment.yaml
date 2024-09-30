@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: 
+  name: app-one-deploy
+
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-1
+  template: # Pod
+    metadata:
+      labels:
+        app: app-1
+    spec:
+      containers:
+        - name: app-one-nginx
+          image: nginx:latest
+          command: ["/bin/sh", "-c"]
+          args:
+          - |
+             sed -i 's/sendfile\s\+on;/sendfile off;/' /etc/nginx/nginx.conf &&
+             nginx -g 'daemon off;'
+          ports:
+            - containerPort: 80
+          volumeMounts:
+            - mountPath: /usr/share/nginx/html
+              name: app-one-volume
+      volumes:
+        - name: app-one-volume
+          hostPath:
+            path: /schahid/App-1
+            type: Directory

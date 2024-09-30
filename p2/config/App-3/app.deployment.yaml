@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-three-deploy
+  
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-3
+  template: # Pod
+    metadata:
+      labels:
+        app: app-3
+    spec:
+      containers:
+        - name: app-three-nginx
+          image: nginx:latest
+          command: ["/bin/sh", "-c"]
+          args:
+          - |
+             sed -i 's/sendfile\s\+on;/sendfile off;/' /etc/nginx/nginx.conf &&
+             nginx -g 'daemon off;'
+          ports:
+            - containerPort: 80
+          volumeMounts:
+            - mountPath: /usr/share/nginx/html
+              name: app-three-volume
+      volumes:
+        - name: app-three-volume
+          hostPath:
+            path: /schahid/App-3
+            type: Directory

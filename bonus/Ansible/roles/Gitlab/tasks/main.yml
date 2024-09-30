@@ -1,0 +1,6 @@
+---
+- name: Export env
+  import_tasks: export-env.yml
+
+- name: Deploy Gitlab Runner
+  import_tasks: deploy-runner.yml

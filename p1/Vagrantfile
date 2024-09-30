@@ -1,0 +1,49 @@
+SERVER_IP="192.168.56.110"
+AGENT_IP="192.168.56.111"
+
+Vagrant.configure("2") do |config|
+
+  config.vm.define "schahidS", primary: true do |master|
+
+    master.vm.box = "bento/ubuntu-24.04"
+    master.vm.hostname = "schahidS"
+    master.vm.network "private_network", ip: SERVER_IP
+    master.vm.network "forwarded_port", guest: 6443, host: 6443
+
+    master.vm.provider("virtualbox") do |vb|
+      vb.name = "Master"
+      vb.memory = "1024"
+      vb.cpus = 1
+    end
+
+    master.vm.synced_folder "config", "/schahid"
+
+    master.vm.provision "shell" do |sh|
+      sh.path = "scripts/master_node.sh"
+      sh.args = [SERVER_IP];
+    end
+
+  end
+
+  config.vm.define "schahidSW" do |worker|
+
+    worker.vm.box = "bento/ubuntu-24.04"
+    worker.vm.hostname = "schahidSW"
+    worker.vm.network "private_network", ip: AGENT_IP
+
+    worker.vm.provider("virtualbox") do |vb|
+      vb.name = "Worker"
+      vb.memory = "1024"
+      vb.cpus = 1
+    end
+
+    worker.vm.synced_folder "config", "/schahid"
+
+    worker.vm.provision "shell" do |sh|
+      sh.path = "scripts/worker_node.sh"
+      sh.args = [SERVER_IP, AGENT_IP];
+    end
+
+  end
+
+end

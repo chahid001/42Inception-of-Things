@@ -1,0 +1,26 @@
+---
+- name: Check if K3D is installed
+  command: k3d version 
+  register: k3d_version
+  ignore_errors: true
+  changed_when: false
+
+- name: Install K3D
+  get_url:
+    url: "{{ K3D_URL }}"
+    dest: /tmp/install.sh
+    mode: '0766'
+  when: k3d_version.rc != 0
+
+- name: Execute installation script
+  shell: /tmp/install.sh
+  when: k3d_version.rc != 0
+
+- name: Destroy old Cluster
+  command: k3d cluster delete
+  when: k3d_version.rc == 0
+  ignore_errors: true
+
+- name: Create Cluster
+  command: k3d cluster create -p 443:443 -p 80:30010
+

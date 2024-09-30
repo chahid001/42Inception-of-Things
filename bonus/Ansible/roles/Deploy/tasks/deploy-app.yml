@@ -1,0 +1,14 @@
+---
+- name: Create namespace
+  command: kubectl create namespace dev 
+
+- name: Copy Application manifest
+  copy:
+    src: ./../config/dev.application.yaml
+    dest: /home/InceptionProMax/dev.application.yaml
+    mode: 0755
+    owner: InceptionProMax
+    group: InceptionProMax
+
+- name: Deploy the App
+  command: kubectl apply -n argocd -f dev.application.yaml

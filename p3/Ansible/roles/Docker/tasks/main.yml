@@ -1,0 +1,5 @@
+- name: Install necessary packages
+  import_tasks: aptitude.yml
+
+- name: Install Docker
+  import_tasks: install-docker.yml

@@ -1,0 +1,19 @@
+---
+- name: Create namespace
+  command: kubectl create namespace argocd
+
+- name: Copy Kustomize templates to the remote server
+  copy:
+    src: ./templates/
+    dest: /home/InceptionProMax/templates
+    mode: 0755
+    owner: InceptionProMax
+    group: InceptionProMax
+
+- name: Apply Kustomize and Deploy ArgoCD 
+  command: kubectl apply -k ./templates -n argocd
+  ignore_errors: true
+
+- name: Apply Ingress 
+  command: kubectl apply -n argocd -f ./templates/ingress.yaml
+

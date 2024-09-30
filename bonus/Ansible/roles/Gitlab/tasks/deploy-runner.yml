@@ -1,0 +1,19 @@
+---
+- name: Create namespace
+  command: kubectl create ns gitlab
+
+- name: Create Secret
+  command: kubectl create secret generic runner-secret --from-literal=runner-token=$RUNNER_TOKEN --from-literal=tag-name=$TAG_NAME -n gitlab
+
+- name: Copy deployment manifest
+  copy:
+    src: ./../config/runner.deployment.yml
+    dest: /home/InceptionProMax/runner.deployment.yml 
+    mode: 0755
+    owner: InceptionProMax
+    group: InceptionProMax
+
+- name: Deploy runner
+  command: kubectl apply -n gitlab -f runner.deployment.yml 
+
+

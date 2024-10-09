@@ -44,7 +44,23 @@ We used **Kustomize** to patch the `install.yaml` for **ArgoCD** with an `--inse
 ## 🌐 **GitOps Explained**:
 **GitOps** is the practice of using Git as the single source of truth for declarative infrastructure and applications. In this project, we use **ArgoCD** to continuously monitor our GitHub repository for changes to the Kubernetes deployment manifests and automatically apply those changes to our **K3D** cluster.
 ## 🛠️ **How to Run the Project**:
-1. Clone the repository to your local machine.
-2. Follow the instructions to set up **K3D**, **ArgoCD**, and **GitLab Runner** using the provided **Ansible** playbooks.
-3. Push changes to the `deployment.yaml` file in the GitHub repository and watch **ArgoCD** deploy the new version automatically.
+### Prerequisites
 
+  -  **Terraform**
+  -  **Ansible**
+  -  **VirtualBox**
+  -  **Vagrant**
+
+1. Clone the repository to your local machine.
+2. Deploy the host VM:
+   ```bash
+    terraform apply
+   ```
+3. For Part 1-2, Run the following Command:
+    ``` bash
+    vagrant up
+   ```
+4. For Part 3 / Bonus, Deploy using ansible:
+   ``` bash
+    ansible-playbook playbook.yml -i Inventories/host.ini
+   ```

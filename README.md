@@ -14,13 +14,27 @@ This project demonstrates how to build a complete CI/CD pipeline with **GitOps**
 - **GitLab Runner** for CI/CD tasks, configured with Docker outside of Docker
 - **Docker** for containerizing applications
 - **Kustomize** for patching ArgoCD YAML files
+- 
 ## 🏗️ **Architecture Overview**:
 The project has three main parts, with the focus on the **Bonus** section, where we implement **GitOps**.
 ### Bonus Architecture:
-- We have **K3D** running **K3S** inside a Docker container on the host VM.
+<table>
+  <tr>
+    <td><img src="https://github.com/chahid001/42Inception-of-Things/blob/main/assets/iot-archi.png" alt="Architecture GIF" width="400"/></td>
+    <td>
+
+The architecture consists of:
+- We have **K3D** running **K3S** inside a Docker container on the host VM (Deployed with **Terraform**).
 - **ArgoCD** is installed to manage the GitOps process, pulling deployment manifests from GitHub.
 - **GitLab Runner** is installed as a container in the **K3D** cluster, but using the Docker volume technique to run jobs on the host's Docker engine.
 - **Kustomize** is used to patch the `install.yaml` for ArgoCD to allow insecure access to the GUI without HTTPS.
+</td>
+  </tr>
+</table>
+
+---
+
+
 ### 📁 **GitLab Runner Setup with Docker Outside of Docker**:
 In this setup, **GitLab Runner** is deployed inside **K3D** but runs jobs in the host VM's Docker engine using **Docker outside of Docker**. Here's how it works:
 1. The **Docker socket** is mounted between the host and the GitLab Runner container, allowing the runner to control Docker on the host VM.

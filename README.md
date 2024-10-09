@@ -18,20 +18,14 @@ This project demonstrates how to build a complete CI/CD pipeline with **GitOps**
 ## 🖼️ **Architecture Overview**:
 The project has three main parts, with the focus on the **Bonus** section, where we implement **GitOps**.
 ### 🏗️ Bonus Architecture:
-<table>
-  <tr>
-    <td><img src="https://github.com/chahid001/42Inception-of-Things/blob/main/assets/iot-archi.png" alt="Architecture GIF" width="2900"/></td>
-    <td>
+
+![](https://github.com/chahid001/42Inception-of-Things/blob/main/assets/iot-archi.png)
 
 The architecture consists of:
 - We have **K3D** running **K3S** inside a Docker container on the host VM (Deployed with **Terraform**).
 - **ArgoCD** is installed to manage the GitOps process, pulling deployment manifests from GitHub.
 - **GitLab Runner** is installed as a container in the **K3D** cluster, but using the Docker volume technique to run jobs on the host's Docker engine.
 - **Kustomize** is used to patch the `install.yaml` for ArgoCD to allow insecure access to the GUI without HTTPS.
-</td>
-  </tr>
-</table>
-
 ---
 
 

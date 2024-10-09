@@ -20,7 +20,7 @@ The project has three main parts, with the focus on the **Bonus** section, where
 ### 🏗️ Bonus Architecture:
 <table>
   <tr>
-    <td><img src="https://github.com/chahid001/42Inception-of-Things/blob/main/assets/iot-archi.png" alt="Architecture GIF" width="1400"/></td>
+    <td><img src="https://github.com/chahid001/42Inception-of-Things/blob/main/assets/iot-archi.png" alt="Architecture GIF" width="2200"/></td>
     <td>
 
 The architecture consists of:

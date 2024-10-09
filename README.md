@@ -1,33 +1,45 @@
 
-# 🌐 Inception of Things (IoT)
+# 💻 **Inception of Things - Bonus Stage** 🚀
 
 ![meme](https://github.com/chahid001/42Inception-of-Things/blob/main/assets/meme.webp)
 
-**Project Overview:**  
-**Inception of Things** is an innovative project focused on setting up a lightweight Kubernetes environment using K3s and K3D. 🚀
 
-## Key Features:
-- **Virtual Machine Management:** Utilized Vagrant for easy VM setup and management.
-- **Application Deployment:** Deployed multiple web applications within the K3s cluster.
-- **Continuous Delivery:** Integrated Argo CD for seamless deployment of applications.
-- **Automation:** Leveraged GitLab CI to automate the deployment process, showcasing modern DevOps practices.
+# This project demonstrates how to build a complete CI/CD pipeline with **GitOps**, **ArgoCD**, **K3D**, and **GitLab Runner** using the **Docker outside of Docker** method.
+# ## 🔧 **Technologies Used**:
+# - **Terraform** for deploying the base infrastructure in Azure
+# - **Vagrant** to manage virtual machines inside the Azure VM
+# - **K3S** as a lightweight Kubernetes distribution
+# - **K3D** (K3S in Docker) for the lightweight Kubernetes clusters
+# - **ArgoCD** to manage the GitOps process, monitoring changes in GitHub and automatically deploying updates
+# - **GitLab Runner** for CI/CD tasks, configured with Docker outside of Docker
+# - **Docker** for containerizing applications
+# - **Kustomize** for patching ArgoCD YAML files
+# ## 🏗️ **Architecture Overview**:
+# The project has three main parts, with the focus on the **Bonus** section, where we implement **GitOps**.
+# ### Bonus Architecture:
+# - We have **K3D** running **K3S** inside a Docker container on the host VM.
+# - **ArgoCD** is installed to manage the GitOps process, pulling deployment manifests from GitHub.
+# - **GitLab Runner** is installed as a container in the **K3D** cluster, but using the Docker volume technique to run jobs on the host's Docker engine.
+# - **Kustomize** is used to patch the `install.yaml` for ArgoCD to allow insecure access to the GUI without HTTPS.
+# ### 📁 **GitLab Runner Setup with Docker Outside of Docker**:
+# In this setup, **GitLab Runner** is deployed inside **K3D** but runs jobs in the host VM's Docker engine using **Docker outside of Docker**. Here's how it works:
+# 1. The **Docker socket** is mounted between the host and the GitLab Runner container, allowing the runner to control Docker on the host VM.
+# 2. The **runner configuration** is accessible from the host, making it easier to debug and manage pipelines.
+# 3. When a pipeline runs, it builds Docker images on the host VM and pushes them to Docker Hub.
+# ### 🚀 **Deployment Process**:
+# 1. Push changes to the `deployment.yaml` in the GitHub repository, such as updating the Docker image version (e.g., from `test:v1` to `test:v2`).
+# 2. **ArgoCD** monitors the repository for changes and automatically deploys the new version when detected.
+# 3. **GitLab Runner** builds the Docker image, pushes it to Docker Hub, and updates the deployment manifest in GitHub.
+# 4. **ArgoCD** syncs the deployment and pulls the new image from Docker Hub to apply it to the Kubernetes cluster.
+# ### 📜 **Why Kustomize Patch?**:
+# We used **Kustomize** to patch the `install.yaml` for **ArgoCD** with an `--insecure` flag. This allows us to access the **ArgoCD** GUI without setting up HTTPS, simplifying access for development purposes.
+# ## 🌐 **GitOps Explained**:
+# **GitOps** is the practice of using Git as the single source of truth for declarative infrastructure and applications. In this project, we use **ArgoCD** to continuously monitor our GitHub repository for changes to the Kubernetes deployment manifests and automatically apply those changes to our **K3D** cluster.
+# ## 🛠️ **How to Run the Project**:
+# 1. Clone the repository to your local machine.
+# 2. Follow the instructions to set up **K3D**, **ArgoCD**, and **GitLab Runner** using the provided **Ansible** playbooks.
+# 3. Push changes to the `deployment.yaml` file in the GitHub repository and watch **ArgoCD** deploy the new version automatically.
 
-# Tech used in the project
-
-![Ansible](https://img.shields.io/badge/ansible-%231A1918.svg?style=for-the-badge&logo=ansible&logoColor=white)
-![Shell Script](https://img.shields.io/badge/shell_script-%23121011.svg?style=for-the-badge&logo=gnu-bash&logoColor=white)
-![Markup](https://img.shields.io/badge/Vagrant-1868F2?style=for-the-badge&logo=Vagrant&logoColor=white)
-![Markup](https://img.shields.io/badge/Argo%20CD-1e0b3e?style=for-the-badge&logo=argo&logoColor=#d16044) 
-![Markup](https://img.shields.io/badge/kubernetes-326ce5.svg?&style=for-the-badge&logo=kubernetes&logoColor=white)
-![Markup](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white) 
-![Markup](https://img.shields.io/badge/Rancher-0075A8?style=for-the-badge&logo=rancher&logoColor=white) 
-![Markup](https://img.shields.io/badge/GitLab-330F63?style=for-the-badge&logo=gitlab&logoColor=white) 
-![Markup](https://img.shields.io/badge/Nginx-009639?style=for-the-badge&logo=nginx&logoColor=white) 
-![Markup](https://img.shields.io/badge/Docker-2CA5E0?style=for-the-badge&logo=docker&logoColor=white) 
-![Terraform](https://img.shields.io/badge/terraform-%235835CC.svg?style=for-the-badge&logo=terraform&logoColor=white)
-
-# Deployment Steps & Arhtectures ... Coming soon
-    
 
 
 

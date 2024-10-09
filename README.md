@@ -1,4 +1,4 @@
-# 💻 **Inception of Things - Bonus Stage** 🚀
+# 💻 **Inception of Things** 🚀
 
 ![meme](https://github.com/chahid001/42Inception-of-Things/blob/main/assets/meme.webp)
 
@@ -15,12 +15,12 @@ This project demonstrates how to build a complete CI/CD pipeline with **GitOps**
 - **Docker** for containerizing applications
 - **Kustomize** for patching ArgoCD YAML files
 - 
-## 🏗️ **Architecture Overview**:
+## 🖼️ **Architecture Overview**:
 The project has three main parts, with the focus on the **Bonus** section, where we implement **GitOps**.
-### Bonus Architecture:
+### 🏗️ Bonus Architecture:
 <table>
   <tr>
-    <td><img src="https://github.com/chahid001/42Inception-of-Things/blob/main/assets/iot-archi.png" alt="Architecture GIF" width="400"/></td>
+    <td><img src="https://github.com/chahid001/42Inception-of-Things/blob/main/assets/iot-archi.png" alt="Architecture GIF" width="700"/></td>
     <td>
 
 The architecture consists of:

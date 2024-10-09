@@ -46,7 +46,7 @@ We used **Kustomize** to patch the `install.yaml` for **ArgoCD** with an `--inse
 ## 🛠️ **How to Run the Project**:
 ### Prerequisites
 
-  -  **Terraform**
+  -  **Terraform** 
   -  **Ansible**
   -  **VirtualBox**
   -  **Vagrant**

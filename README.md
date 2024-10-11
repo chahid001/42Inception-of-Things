@@ -19,7 +19,7 @@ This project demonstrates how to build a complete CI/CD pipeline with **GitOps**
 The project has three main parts, with the focus on the **Bonus** section, where we implement **GitOps**.
 ### 🏗️ Bonus Architecture:
 
-![](https://github.com/chahid001/42Inception-of-Things/blob/main/assets/iot-land.png)
+![](https://github.com/chahid001/42Inception-of-Things/blob/main/assets/archi-land.png)
 
 The architecture consists of:
 - We have **K3D** running **K3S** inside a Docker container on the host VM (Deployed with **Terraform**).

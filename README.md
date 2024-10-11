@@ -83,7 +83,7 @@ We used **Kustomize** to patch the `install.yaml` for **ArgoCD** with an `--inse
 - **GitLab Runner**: CI/CD pipeline for Docker image builds.
 - **Ansible**: Automation for installing tools and setting up environments.
 - **Kustomize**: A patch management tool for Kubernetes configurations.
-- 
+
 ## 🛠️ **How to Run the Project**:
 
 ### Prerequisites

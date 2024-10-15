@@ -4,7 +4,7 @@
 
 
 
-This project demonstrates how to build a complete CI/CD pipeline with **GitOps**, **ArgoCD**, **K3D**, and **GitLab Runner** using the **Docker outside of Docker** method.
+This project demonstrates a complete CI/CD pipeline with **GitOps**, **ArgoCD**, **K3D**, and **GitLab Runner** using the **Docker outside of Docker** method.
 
 
 ### Project Structure 🏗️
